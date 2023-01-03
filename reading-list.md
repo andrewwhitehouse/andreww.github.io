@@ -1,5 +1,4 @@
 [K] = Kindle
-[I] = imported
 
 ## Reading list 
 
@@ -11,6 +10,7 @@
 
 * Steal Like an Artist [K]
 * Body of Work [K]
+* The Daily Stoic [K]
 
 ### Prioritised Backlog [K]
 
