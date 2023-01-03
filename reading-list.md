@@ -1,4 +1,5 @@
 [K] = Kindle
+[P] = print
 
 ## Reading list 
 
@@ -8,13 +9,14 @@
 
 ### Read Regularly
 
-* Steal Like an Artist [K]
+* Steal Like an Artist [KP]
 * Body of Work [K]
-* The Daily Stoic [K]
+* The Daily Stoic [KP]
+* Show Your Work [P]
 
-### Prioritised Backlog [K]
+### Prioritised Backlog 
 
-* 4000 Weeks [K]
+* 4000 Weeks [KP]
 * Navalmanac [K]
 * Atomic Habits [K]
 * The Lessons of History [K]
@@ -34,8 +36,8 @@
 * Ageless: The New Science of Getting Older without Getting Older [K]
 * Range: How Generalists Triumph in a Specialised World [K]
 * The Highly Sensitive Person [K]
-* From Strength to Strength [K]
-* The Introvert Entrepreneur [K]
+* From Strength to Strength [KP]
+* The Introvert Entrepreneur [KP]
 * Uncertainty (Jonathan Fields) [K]
 * Burnout [K]
 * The Personal MBA [K]
@@ -109,9 +111,9 @@
 * Algorithms to Live By [K]
 * How to Live (Sivers) [K]
 * Antifragile [K]
-* Scattered Minds [K]
+* Scattered Minds [KP]
 * Making Ideas Happen [K]
-* Wisdom at Work [K]
+* Wisdom at Work [KP]
 * The Daily Stoic [K]
 * Meditations [K]
 * Trauma [K]
