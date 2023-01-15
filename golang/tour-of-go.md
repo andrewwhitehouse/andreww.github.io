@@ -1,5 +1,7 @@
 ## Packages
 
+[source](https://go.dev/tour/basics/1)
+
 By convention, the package name is the same as the last element of the import path. For instance, the "math/rand" package comprises files that begin with the statement package rand.
 
 The environment in which these programs are executed is deterministic, so each time you run the example program rand.Intn will return the same number.
@@ -518,7 +520,263 @@ func Sqrt(x float64) float64 {
 }
 ```
 
+[_Note: when doing a tutorial it's helpful to give them something to do. Like translating pseudocode to Golang, perhaps._]
+
+[Basic types: not sure about the `rune`.]
+
+---
+
+## Switch
+A switch statement is a shorter way to write a sequence of if - else statements. It runs the first case whose value is equal to the condition expression.
+
+Go's switch is like the one in C, C++, Java, JavaScript, and PHP, except that **Go only runs the selected case, not all the cases that follow**. In effect, **the break statement that is needed at the end of each case in those languages is provided automatically in Go**. Another important difference is that **Go's switch cases need not be constants, and the values involved need not be integers**.
+
+```
+package main
+
+import (
+	"fmt"
+	"runtime"
+)
+
+func main() {
+	fmt.Print("Go runs on ")
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		fmt.Println("OS X.")
+	case "linux":
+		fmt.Println("Linux.")
+	default:
+		// freebsd, openbsd,
+		// plan9, windows...
+		fmt.Printf("%s.\n", os)
+	}
+}
+```
+
+## Switch evaluation order
+Switch cases evaluate cases from top to bottom, stopping when a case succeeds.
+
+(For example,
+
+switch i {
+case 0:
+case f():
+}
+does not call f if i==0.)
+
+Note: Time in the Go playground always appears to start at 2009-11-10 23:00:00 UTC, a value whose significance is left as an exercise for the reader.
+
+```
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	fmt.Println("When's Saturday?")
+	today := time.Now().Weekday()
+	switch time.Saturday {
+	case today + 0:
+		fmt.Println("Today.")
+	case today + 1:
+		fmt.Println("Tomorrow.")
+	case today + 2:
+		fmt.Println("In two days.")
+	default:
+		fmt.Println("Too far away.")
+	}
+}
+```
+
+## Switch with no condition
+Switch without a condition is the same as switch true.
+
+This construct can be a clean way to write long if-then-else chains.
+
+```
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	t := time.Now()
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning!")
+	case t.Hour() < 17:
+		fmt.Println("Good afternoon.")
+	default:
+		fmt.Println("Good evening.")
+	}
+}
+```
+
+## Defer
+A defer statement defers the execution of a function until the surrounding function returns.
+
+The deferred call's arguments are evaluated immediately, but the function call is not executed until the surrounding function returns.
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	defer fmt.Println("world")
+
+	fmt.Println("hello")
+}
+```
+
+## Stacking defers
+Deferred function calls are pushed onto a stack. When a function returns, its deferred calls are executed in last-in-first-out order.
+
+To learn more about defer statements read [this blog post](https://go.dev/blog/defer-panic-and-recover).
+
+---
+
+## Pointers
+Go has pointers. A pointer holds the memory address of a value.
+
+The type *T is a pointer to a T value. Its zero value is nil.
+
+`var p *int`
+
+The & operator generates a pointer to its operand.
+
+```
+i := 42
+p = &i
+```
+
+The * operator denotes the pointer's underlying value.
+
+```
+fmt.Println(*p) // read i through the pointer p
+*p = 21         // set i through the pointer p
+```
+
+This is known as "dereferencing" or "indirecting".
+
+Unlike C, ***Go has no pointer arithmetic***.
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	i, j := 42, 2701
+
+	p := &i         // point to i
+	fmt.Println(*p) // read i through the pointer
+	*p = 21         // set i through the pointer
+	fmt.Println(i)  // see the new value of i
+
+	p = &j         // point to j
+	*p = *p / 37   // divide j through the pointer
+	fmt.Println(j) // see the new value of j
+}
+```
+
+---
+
+## Structs
+A struct is a collection of fields.
 ​
+```
+package main
+
+import "fmt"
+
+type Vertex struct {
+	X int
+	Y int
+}
+
+func main() {
+	fmt.Println(Vertex{1, 2})
+}
+```
+
+## Struct Fields
+Struct fields are accessed using a dot.
+
+```
+package main
+
+import "fmt"
+
+type Vertex struct {
+	X int
+	Y int
+}
+
+func main() {
+	v := Vertex{1, 2}
+	v.X = 4
+	fmt.Println(v.X)
+}
+```
+
+## Pointers to structs
+Struct fields can be accessed through a struct pointer.
+
+To access the field X of a struct when we have the struct pointer p we could write (*p).X. However, that notation is cumbersome, so the language permits us instead to write just p.X, without the explicit dereference.
+
+```
+package main
+
+import "fmt"
+
+type Vertex struct {
+	X int
+	Y int
+}
+
+func main() {
+	v := Vertex{1, 2}
+	p := &v
+	p.X = 1e9
+	fmt.Println(v)
+}
+```
+
+## Struct Literals
+
+A struct literal denotes a newly allocated struct value by listing the values of its fields.
+
+You can list just a subset of fields by using the `Name: `. (And the order of named fields is irrelevant.)
+
+The special prefix `&` returns a pointer to the struct value.
+
+```
+package main
+
+import "fmt"
+
+type Vertex struct {
+    X, Y int
+}
+
+var (
+    v1 = Vertex{1, 2} // has type Vertex
+    v2 = Vertex{X: 1}
+    v3 = Vertex{} // X:0 and Y:0
+    p = &Vertex{1, 2}
+)
+
+func main() {
+    fmt.Println(v1, p, v2, v3)
+}
+```
+
 
 
 
