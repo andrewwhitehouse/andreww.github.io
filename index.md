@@ -17,7 +17,7 @@
 * [Crypto Notes](./cryptonotes.md)
 * [A Tour of Go](./golang/tour-of-go.md)
 
-## Possible Projects
+## Projects Bucket List
 
 - Book: Learn Rust the Hard Way [15/1]
 - Book: Learn Go the Hard Way [15/1]
